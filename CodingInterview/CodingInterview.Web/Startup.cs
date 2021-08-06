@@ -23,6 +23,8 @@ namespace CodingInterview.Web
         {
             services.AddTransient<ICodingInterviewDao, CodingInterviewDao>();
             services.AddTransient<IInvoiceService, InvoiceService>();
+            services.AddTransient<IItemService, ItemService>();
+            services.AddTransient<ICustomerService, CustomerService>();
 
             services.AddControllers().AddNewtonsoftJson(x =>
             {

@@ -11,11 +11,31 @@ namespace CodingInterview.Tests
         private readonly Random _random = new Random();
 
         [Fact]
-        public void GetInvoice()
+        public void GetInvoice_Returns()
         {
             var id = _random.Next();
 
-            ClassUnderTest.Get(id);
+            var expected = new Invoice();
+
+            AutoMocker.Mock<ICodingInterviewDao>().Setup(x => x.GetInvoice(id)).Returns(expected);
+
+            var actual = ClassUnderTest.Get(id);
+
+            Assert.Equal(expected, actual);
+
+            AutoMocker.Mock<ICodingInterviewDao>().Verify(x => x.GetInvoice(id), Times.Once);
+        }
+
+        [Fact]
+        public void GetInvoice_Throws()
+        {
+            var id = _random.Next();
+
+            var expected = new TestException();
+
+            AutoMocker.Mock<ICodingInterviewDao>().Setup(x => x.GetInvoice(id)).Throws(expected);
+            
+            Assert.Throws<TestException>(() => ClassUnderTest.Get(id));
 
             AutoMocker.Mock<ICodingInterviewDao>().Verify(x => x.GetInvoice(id), Times.Once);
         }
