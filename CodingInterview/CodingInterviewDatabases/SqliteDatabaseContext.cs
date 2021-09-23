@@ -119,106 +119,106 @@ namespace CodingInterview.Databases
                     Created = DateTime.UtcNow.AddDays(-13)
                 });
 
-            modelBuilder.Entity<Order>().HasData(
-                new Order
+            modelBuilder.Entity<InvoiceItem>().HasData(
+                new InvoiceItem
                 {
                     Id = 1,
                     InvoiceId = 1,
                     ItemId = 1,
                     Quantity = 100
                 },
-                new Order
+                new InvoiceItem
                 {
                     Id = 2,
                     InvoiceId = 1,
                     ItemId = 2,
                     Quantity = 15
                 },
-                new Order
+                new InvoiceItem
                 {
                     Id = 3,
                     InvoiceId = 2,
                     ItemId = 1,
                     Quantity = 20
                 },
-                new Order
+                new InvoiceItem
                 {
                     Id = 4,
                     InvoiceId = 2,
                     ItemId = 2,
                     Quantity = 20
                 },
-                new Order
+                new InvoiceItem
                 {
                     Id = 5,
                     InvoiceId = 1,
                     ItemId = 3,
                     Quantity = 5
                 },
-                new Order
+                new InvoiceItem
                 {
                     Id = 6,
                     InvoiceId = 4,
                     ItemId = 1,
                     Quantity = 500
                 },
-                new Order
+                new InvoiceItem
                 {
                     Id = 7,
                     InvoiceId = 4,
                     ItemId = 2,
                     Quantity = 50
                 },
-                new Order
+                new InvoiceItem
                 {
                     Id = 8,
                     InvoiceId = 5,
                     ItemId = 1,
                     Quantity = 20
                 },
-                new Order
+                new InvoiceItem
                 {
                     Id = 9,
                     InvoiceId = 5,
                     ItemId = 2,
                     Quantity = 20
                 },
-                new Order
+                new InvoiceItem
                 {
                     Id = 10,
                     InvoiceId = 3,
                     ItemId = 2,
                     Quantity = 20
                 },
-                new Order
+                new InvoiceItem
                 {
                     Id = 11,
                     InvoiceId = 3,
                     ItemId = 3,
                     Quantity = 5
                 },
-                new Order
+                new InvoiceItem
                 {
                     Id = 12,
                     InvoiceId = 3,
                     ItemId = 1,
                     Quantity = 500
                 },
-                new Order
+                new InvoiceItem
                 {
                     Id = 13,
                     InvoiceId = 6,
                     ItemId = 1,
                     Quantity = 20
                 },
-                new Order
+                new InvoiceItem
                 {
                     Id = 14,
                     InvoiceId = 6,
                     ItemId = 2,
                     Quantity = 20
                 },
-                new Order
+                new InvoiceItem
                 {
                     Id = 15,
                     InvoiceId = 6,

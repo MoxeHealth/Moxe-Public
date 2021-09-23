@@ -5,7 +5,7 @@ using System.Diagnostics.CodeAnalysis;
 namespace CodingInterview.Databases
 {
     [ExcludeFromCodeCoverage]
-    public class Order
+    public class InvoiceItem
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }

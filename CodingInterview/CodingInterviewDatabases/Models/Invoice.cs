@@ -19,7 +19,7 @@ namespace CodingInterview.Databases
 
         [ForeignKey("CustomerId")]
         public virtual Customer Customer { get; set; }
-        public ICollection<Order> Orders { get; set; }
+        public ICollection<InvoiceItem> InvoiceItems { get; set; }
 
         public IDictionary<string, double> ItemizedTotal
             => OrderData.ToDictionary(x => x.Key, x => Math.Round(x.Value.Quantity * x.Value.Price, 2));
@@ -30,6 +30,6 @@ namespace CodingInterview.Databases
         public double TotalPrice
             => Math.Round(Subtotal + Taxes, 2);
         private IDictionary<string, (int Quantity, string Name, double Price, double Taxes)> OrderData
-            => Orders?.Select(x => (x.Quantity, x.Item.Name, x.Item.Price, x.Item.Taxes)).GroupBy(x => x.Name).ToDictionary(x => x.Key, x => x.First());
+            => InvoiceItems?.Select(x => (x.Quantity, x.Item.Name, x.Item.Price, x.Item.Taxes)).GroupBy(x => x.Name).ToDictionary(x => x.Key, x => x.First());
     }
 }

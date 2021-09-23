@@ -9,38 +9,38 @@ namespace CodingInterview.Databases
     {
         public Customer GetCustomer(int id)
         {
-            Customer dbo;
+            Customer customerDbo;
 
             using (var db = new SqliteDatabaseContext())
             {
-                dbo = db.Customers.Include(x => x.Invoices).FirstOrDefault(x => x.Id == id);
+                customerDbo = db.Customers.Include(customer => customer.Invoices).FirstOrDefault(customer => customer.Id == id);
             }
 
-            return dbo;
+            return customerDbo;
         }
 
         public Invoice GetInvoice(int id)
         {
-            Invoice dbo;
+            Invoice invoiceDbo;
 
             using (var db = new SqliteDatabaseContext())
             {
-                dbo = db.Invoices.Include(x => x.Customer).Include(x => x.Orders).ThenInclude(x => x.Item).FirstOrDefault(x => x.Id == id);
+                invoiceDbo = db.Invoices.Include(invoice => invoice.Customer).Include(invoice => invoice.InvoiceItems).ThenInclude(invoiceItem => invoiceItem.Item).FirstOrDefault(invoice => invoice.Id == id);
             }
 
-            return dbo;
+            return invoiceDbo;
         }
 
         public Item GetItem(int id)
         {
-            Item dbo;
+            Item itemDbo;
 
             using (var db = new SqliteDatabaseContext())
             {
-                dbo = db.Items.FirstOrDefault(x => x.Id == id);
+                itemDbo = db.Items.FirstOrDefault(item => item.Id == id);
             }
 
-            return dbo;
+            return itemDbo;
         }
     }
 }
