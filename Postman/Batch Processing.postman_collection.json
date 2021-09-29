@@ -1,0 +1,73 @@
+{
+	"info": {
+		"_postman_id": "19f61fab-13bd-41ed-9e20-a46f1108872d",
+		"name": "Batch Processing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "ProcessSuspectsBatch",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Root\": \"incoming/ibx\",\r\n    \"Id\": \"20210312\",\r\n    \"Context\": {\r\n        \"PayorIdentifier\": \"IBX_PRD_IBX\",\r\n        \"HealthSystemIdentifier\": \"TJU_PRD_EPC\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4444/api/v4/batch/process/0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v4",
+						"batch",
+						"process",
+						"0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ProcessRdtBatch",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Root\": \"incoming/jefferson\",\r\n    \"Id\": \"20210801\",\r\n    \"Since\": \"2021-01-01\",\r\n    \"Context\": {\r\n        \"PayorIdentifier\": \"IBX_PRD_IBX\",\r\n        \"HealthSystemIdentifier\": \"TJU_PRD_EPC\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4444/api/v4/batch/process/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"api",
+						"v4",
+						"batch",
+						"process",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
