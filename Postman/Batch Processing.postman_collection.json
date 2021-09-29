@@ -6,6 +6,140 @@
 	},
 	"item": [
 		{
+			"name": "Smoke",
+			"item": [
+				{
+					"name": "GetJwt",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.globals.set(\"smoke-test-token\", jsonData.data.token);",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Payor ORG/ENV/APP (m_prid) is UPH_PRD_HFF\", function() {",
+									"    pm.expect(jsonData.data.m_prid).to.eql(\"UPH_PRD_HFF\");",
+									"});",
+									"",
+									"pm.test(\"Provider ORG/ENV/APP (m_hsid) is UPP_PRD_EPC\", function() {",
+									"    pm.expect(jsonData.data.m_hsid).to.eql(\"UPP_PRD_EPC\");",
+									"});",
+									"",
+									"pm.test(\"Provider Id Type (m_pit) is EPI\", function() {",
+									"    pm.expect(jsonData.data.m_pit).to.eql(\"EPI\");",
+									"});",
+									"",
+									"pm.test(\"Audience (aud) is https://prod-moxehealth.com\", function() {",
+									"    pm.expect(jsonData.data.aud).to.eql(\"https://prod-moxehealth.com\");",
+									"});",
+									"",
+									"pm.test(\"Issuer (iss) is convergence-api\", function() {",
+									"    pm.expect(jsonData.data.iss).to.eql(\"convergence-api\");",
+									"});",
+									"",
+									"pm.test(\"Organization (m_org) is upmc\", function() {",
+									"    pm.expect(jsonData.data.m_org).to.eql(\"upmc\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/v1/authorize/encrypted-get?test&site=7ede7179-a724-4a7c-9f00-90c7345c94ef",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"authorize",
+								"encrypted-get"
+							],
+							"query": [
+								{
+									"key": "test",
+									"value": ""
+								},
+								{
+									"key": "site",
+									"value": "7ede7179-a724-4a7c-9f00-90c7345c94ef"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetConditions",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{smoke-test-token}}"
+							},
+							{
+								"key": "Origin",
+								"value": "https://prod-convergenceapi.moxehealth.com",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://convergenceapi.moxehealth.com/v1/hcc/conditions?scope=workflow",
+							"protocol": "https",
+							"host": [
+								"convergenceapi",
+								"moxehealth",
+								"com"
+							],
+							"path": [
+								"v1",
+								"hcc",
+								"conditions"
+							],
+							"query": [
+								{
+									"key": "scope",
+									"value": "workflow"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "ProcessSuspectsBatch",
 			"request": {
 				"method": "POST",
