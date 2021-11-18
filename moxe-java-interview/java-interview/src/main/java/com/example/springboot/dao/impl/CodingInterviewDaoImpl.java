@@ -57,8 +57,8 @@ public class CodingInterviewDaoImpl implements CodingInterviewDao {
       invoice.setId(id);
       invoice.setCustomerId(invoiceResultSet.getInt("CUSTOMERID"));
       invoice.setCreated(invoiceResultSet.getDate("CREATED"));
-      invoice.setCreated(invoiceResultSet.getDate("PAID"));
-      invoice.setCreated(invoiceResultSet.getDate("SHIPPED"));
+      invoice.setPaid(invoiceResultSet.getDate("PAID"));
+      invoice.setShipped(invoiceResultSet.getDate("SHIPPED"));
 
     } catch (SQLException e) {
       System.out.println(e.getMessage());
