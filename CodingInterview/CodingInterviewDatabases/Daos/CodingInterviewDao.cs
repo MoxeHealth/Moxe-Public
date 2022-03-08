@@ -13,7 +13,8 @@ namespace CodingInterview.Databases
 
             using (var db = new SqliteDatabaseContext())
             {
-                customerDbo = db.Customers.Include(customer => customer.Invoices).FirstOrDefault(customer => customer.Id == id);
+                customerDbo = db.Customers
+                    .FirstOrDefault(customer => customer.Id == id);
             }
 
             return customerDbo;
@@ -25,7 +26,11 @@ namespace CodingInterview.Databases
 
             using (var db = new SqliteDatabaseContext())
             {
-                invoiceDbo = db.Invoices.Include(invoice => invoice.Customer).Include(invoice => invoice.InvoiceItems).ThenInclude(invoiceItem => invoiceItem.Item).FirstOrDefault(invoice => invoice.Id == id);
+                invoiceDbo = db.Invoices
+                    .Include(invoice => invoice.Customer)
+                    .Include(invoice => invoice.InvoiceItems)
+                    .ThenInclude(invoiceItem => invoiceItem.Item)
+                    .FirstOrDefault(invoice => invoice.Id == id);
             }
 
             return invoiceDbo;
@@ -37,7 +42,8 @@ namespace CodingInterview.Databases
 
             using (var db = new SqliteDatabaseContext())
             {
-                itemDbo = db.Items.FirstOrDefault(item => item.Id == id);
+                itemDbo = db.Items
+                    .FirstOrDefault(item => item.Id == id);
             }
 
             return itemDbo;
