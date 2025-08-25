@@ -1,6 +1,5 @@
-﻿namespace CodingInterview.Web
+﻿namespace CodingInterview.Web;
+
+public class ItemService : IItemService
 {
-    public class ItemService : IItemService
-    {
-    }
 }

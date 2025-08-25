@@ -4,5 +4,5 @@ using System.Diagnostics.CodeAnalysis;
 namespace CodingInterview.Tests
 {
     [ExcludeFromCodeCoverage]
-    public class TestException :Exception { }
+    public class TestException : Exception { }
 }

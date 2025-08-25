@@ -9,7 +9,7 @@ namespace CodingInterview.Tests
 {
     public class InvoiceControllerTests : MockingTestBase<InvoiceController>
     {
-        private readonly Random _random = new Random();
+        private readonly Random _random = new();
 
         [Fact]
         public void Get_Ok()

@@ -7,48 +7,39 @@ using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using System.Diagnostics.CodeAnalysis;
 
-namespace CodingInterview.Web
+namespace CodingInterview.Web;
+
+[ExcludeFromCodeCoverage]
+public class Startup(IConfiguration configuration)
 {
-    [ExcludeFromCodeCoverage]
-    public class Startup
+    public IConfiguration Configuration { get; } = configuration;
+
+    public void ConfigureServices(IServiceCollection services)
     {
-        public IConfiguration Configuration { get; }
+        _ = services.AddTransient<ICodingInterviewDao, CodingInterviewDao>();
+        _ = services.AddTransient<IInvoiceService, InvoiceService>();
+        _ = services.AddTransient<IItemService, ItemService>();
+        _ = services.AddTransient<ICustomerService, CustomerService>();
 
-        public Startup(IConfiguration configuration)
+        _ = services.AddControllers().AddNewtonsoftJson(x =>
         {
-            Configuration = configuration;
+            x.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            x.SerializerSettings.Formatting = Formatting.Indented;
+            x.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+        });
+    }
+
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    {
+        if (env.IsDevelopment())
+        {
+            _ = app.UseDeveloperExceptionPage();
         }
 
-        public void ConfigureServices(IServiceCollection services)
-        {
-            services.AddTransient<ICodingInterviewDao, CodingInterviewDao>();
-            services.AddTransient<IInvoiceService, InvoiceService>();
-            services.AddTransient<IItemService, ItemService>();
-            services.AddTransient<ICustomerService, CustomerService>();
+        _ = app.UseHttpsRedirection();
+        _ = app.UseRouting();
+        _ = app.UseAuthorization();
 
-            services.AddControllers().AddNewtonsoftJson(x =>
-            {
-                x.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-                x.SerializerSettings.Formatting = Formatting.Indented;
-                x.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
-            });
-        }
-        
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-
-            app.UseHttpsRedirection();
-            app.UseRouting();
-            app.UseAuthorization();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
-        }
+        _ = app.UseEndpoints(endpoints => endpoints.MapControllers());
     }
 }

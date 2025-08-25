@@ -6,7 +6,7 @@ namespace CodingInterview.Tests
 {
     public class CustomerControllerTests : MockingTestBase<CustomerController>
     {
-        private readonly Random _random = new Random();
+        private readonly Random _random = new();
 
         [Fact]
         public void Get()

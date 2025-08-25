@@ -1,9 +1,8 @@
 ﻿using CodingInterview.Databases;
 
-namespace CodingInterview.Web
+namespace CodingInterview.Web;
+
+public interface IInvoiceService
 {
-    public interface IInvoiceService
-    {
-        Invoice Get(int id);
-    }
+    Invoice Get(int id);
 }

@@ -8,7 +8,7 @@ namespace CodingInterview.Tests
 {
     public class InvoiceServiceTests : MockingTestBase<InvoiceService>
     {
-        private readonly Random _random = new Random();
+        private readonly Random _random = new();
 
         [Fact]
         public void GetInvoice_Returns()
@@ -34,7 +34,7 @@ namespace CodingInterview.Tests
             var expected = new TestException();
 
             AutoMocker.Mock<ICodingInterviewDao>().Setup(x => x.GetInvoice(id)).Throws(expected);
-            
+
             Assert.Throws<TestException>(() => ClassUnderTest.Get(id));
 
             AutoMocker.Mock<ICodingInterviewDao>().Verify(x => x.GetInvoice(id), Times.Once);

@@ -1,6 +1,5 @@
-﻿namespace CodingInterview.Web
+﻿namespace CodingInterview.Web;
+
+public interface IItemService
 {
-    public interface IItemService
-    {
-    }
 }

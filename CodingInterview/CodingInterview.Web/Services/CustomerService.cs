@@ -1,6 +1,5 @@
-﻿namespace CodingInterview.Web
+﻿namespace CodingInterview.Web;
+
+public class CustomerService : ICustomerService
 {
-    public class CustomerService : ICustomerService
-    {
-    }
 }
