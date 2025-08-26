@@ -1,7 +1,9 @@
-﻿using CodingInterview.Databases;
-using System;
+﻿namespace CodingInterview.Web;
 
-namespace CodingInterview.Web;
+public interface IInvoiceService
+{
+    Invoice Get(int id);
+}
 
 public class InvoiceService(ICodingInterviewDao dao) : IInvoiceService
 {

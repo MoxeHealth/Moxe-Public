@@ -1,43 +1,37 @@
-using CodingInterview.Databases;
-using CodingInterview.Web;
-using Moq;
-using System;
-using Xunit;
+namespace CodingInterview.Tests;
 
-namespace CodingInterview.Tests
+[TestClass]
+public class InvoiceServiceTests : MockingTestBase<InvoiceService>
 {
-    public class InvoiceServiceTests : MockingTestBase<InvoiceService>
+    private readonly Random _random = new();
+
+    [TestMethod]
+    public void GetInvoice_Returns()
     {
-        private readonly Random _random = new();
+        var id = _random.Next();
 
-        [Fact]
-        public void GetInvoice_Returns()
-        {
-            var id = _random.Next();
+        var expected = new Invoice();
 
-            var expected = new Invoice();
+        AutoMocker.Mock<ICodingInterviewDao>().Setup(x => x.GetInvoice(id)).Returns(expected);
 
-            AutoMocker.Mock<ICodingInterviewDao>().Setup(x => x.GetInvoice(id)).Returns(expected);
+        var actual = ClassUnderTest.Get(id);
 
-            var actual = ClassUnderTest.Get(id);
+        Assert.AreEqual(expected, actual);
 
-            Assert.Equal(expected, actual);
+        AutoMocker.Mock<ICodingInterviewDao>().Verify(x => x.GetInvoice(id), Times.Once);
+    }
 
-            AutoMocker.Mock<ICodingInterviewDao>().Verify(x => x.GetInvoice(id), Times.Once);
-        }
+    [TestMethod]
+    public void GetInvoice_Throws()
+    {
+        var id = _random.Next();
 
-        [Fact]
-        public void GetInvoice_Throws()
-        {
-            var id = _random.Next();
+        var expected = new TestException();
 
-            var expected = new TestException();
+        AutoMocker.Mock<ICodingInterviewDao>().Setup(x => x.GetInvoice(id)).Throws(expected);
 
-            AutoMocker.Mock<ICodingInterviewDao>().Setup(x => x.GetInvoice(id)).Throws(expected);
+        Assert.ThrowsException<TestException>(() => ClassUnderTest.Get(id));
 
-            Assert.Throws<TestException>(() => ClassUnderTest.Get(id));
-
-            AutoMocker.Mock<ICodingInterviewDao>().Verify(x => x.GetInvoice(id), Times.Once);
-        }
+        AutoMocker.Mock<ICodingInterviewDao>().Verify(x => x.GetInvoice(id), Times.Once);
     }
 }

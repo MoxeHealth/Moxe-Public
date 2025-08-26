@@ -1,12 +1,3 @@
-using CodingInterview.Databases;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Newtonsoft.Json;
-using System.Diagnostics.CodeAnalysis;
-
 namespace CodingInterview.Web;
 
 [ExcludeFromCodeCoverage]

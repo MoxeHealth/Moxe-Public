@@ -1,8 +1,4 @@
-﻿using CodingInterview.Databases;
-using Microsoft.AspNetCore.Mvc;
-using System;
-
-namespace CodingInterview.Web;
+﻿namespace CodingInterview.Web;
 
 [ApiController]
 [Route("invoice")]

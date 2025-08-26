@@ -1,52 +1,45 @@
-using CodingInterview.Databases;
-using CodingInterview.Web;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using Moq;
-using Xunit;
+namespace CodingInterview.Tests;
 
-namespace CodingInterview.Tests
+[TestClass]
+public class InvoiceControllerTests : MockingTestBase<InvoiceController>
 {
-    public class InvoiceControllerTests : MockingTestBase<InvoiceController>
+    private readonly Random _random = new();
+
+    [TestMethod]
+    public void Get_Ok()
     {
-        private readonly Random _random = new();
+        var id = _random.Next();
 
-        [Fact]
-        public void Get_Ok()
-        {
-            var id = _random.Next();
+        AutoMocker.Mock<IInvoiceService>().Setup(x => x.Get(id)).Returns(new Invoice());
 
-            AutoMocker.Mock<IInvoiceService>().Setup(x => x.Get(id)).Returns(new Invoice());
+        var actual = ClassUnderTest.Get(id);
 
-            var actual = ClassUnderTest.Get(id);
+        var okObjectResultObject = actual as OkObjectResult;
+        Assert.IsNotNull(okObjectResultObject);
+        Assert.AreEqual(200, okObjectResultObject.StatusCode);
+        AutoMocker.Mock<IInvoiceService>().Verify(x => x.Get(id), Times.Once);
+    }
 
-            Assert.NotNull(actual);
-            Assert.IsType<OkObjectResult>(actual);
+    [TestMethod]
+    public void Get_NotFound()
+    {
+        var id = _random.Next();
 
-            AutoMocker.Mock<IInvoiceService>().Verify(x => x.Get(id), Times.Once);
-        }
+        AutoMocker.Mock<IInvoiceService>().Setup(x => x.Get(id)).Returns(default(Invoice));
 
-        [Fact]
-        public void Get_NotFound()
-        {
-            var id = _random.Next();
+        var actual = ClassUnderTest.Get(id);
 
-            AutoMocker.Mock<IInvoiceService>().Setup(x => x.Get(id)).Returns(default(Invoice));
+        var notFoundResultObject = actual as NotFoundResult;
+        Assert.IsNotNull(notFoundResultObject);
+        Assert.AreEqual(404, notFoundResultObject.StatusCode);
+        AutoMocker.Mock<IInvoiceService>().Verify(x => x.Get(id), Times.Once);
+    }
 
-            var actual = ClassUnderTest.Get(id);
+    [TestMethod]
+    public void GetByCustomerId()
+    {
+        var id = _random.Next();
 
-            Assert.NotNull(actual);
-            Assert.IsType<NotFoundResult>(actual);
-
-            AutoMocker.Mock<IInvoiceService>().Verify(x => x.Get(id), Times.Once);
-        }
-
-        [Fact]
-        public void GetByCustomerId()
-        {
-            var id = _random.Next();
-
-            Assert.Throws<NotImplementedException>(() => ClassUnderTest.GetByCustomerId(id));
-        }
+        Assert.ThrowsException<NotImplementedException>(() => ClassUnderTest.GetByCustomerId(id));
     }
 }
