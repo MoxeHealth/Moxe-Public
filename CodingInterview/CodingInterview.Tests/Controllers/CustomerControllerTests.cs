@@ -1,19 +1,15 @@
-using CodingInterview.Web;
-using System;
-using Xunit;
+namespace CodingInterview.Tests;
 
-namespace CodingInterview.Tests
+[TestClass]
+public class CustomerControllerTests : MockingTestBase<CustomerController>
 {
-    public class CustomerControllerTests : MockingTestBase<CustomerController>
+    private readonly Random _random = new();
+
+    [TestMethod]
+    public void Get()
     {
-        private readonly Random _random = new Random();
+        var id = _random.Next();
 
-        [Fact]
-        public void Get()
-        {
-            var id = _random.Next();
-
-            Assert.Throws<NotImplementedException>(() => ClassUnderTest.Get(id));
-        }
+        Assert.ThrowsException<NotImplementedException>(() => ClassUnderTest.Get(id));
     }
 }

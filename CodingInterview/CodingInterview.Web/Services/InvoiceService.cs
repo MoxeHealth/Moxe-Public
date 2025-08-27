@@ -1,20 +1,13 @@
-﻿using CodingInterview.Databases;
-using System;
+﻿namespace CodingInterview.Web;
 
-namespace CodingInterview.Web
+public interface IInvoiceService
 {
-    public class InvoiceService : IInvoiceService
-    {
-        private readonly ICodingInterviewDao _dao;
+    Invoice Get(int id);
+}
 
-        public InvoiceService(ICodingInterviewDao dao)
-        {
-            _dao = dao ?? throw new ArgumentException(nameof(dao));
-        }
+public class InvoiceService(ICodingInterviewDao dao) : IInvoiceService
+{
+    private readonly ICodingInterviewDao _dao = dao ?? throw new ArgumentException(nameof(dao));
 
-        public Invoice Get(int id)
-        {
-            return _dao.GetInvoice(id);
-        }
-    }
+    public Invoice Get(int id) => _dao.GetInvoice(id);
 }

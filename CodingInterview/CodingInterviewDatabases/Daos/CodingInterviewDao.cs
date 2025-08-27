@@ -1,52 +1,54 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
+﻿namespace CodingInterview.Databases;
 
-namespace CodingInterview.Databases
+public interface ICodingInterviewDao
 {
-    [ExcludeFromCodeCoverage]
-    public class CodingInterviewDao : ICodingInterviewDao
+    Customer GetCustomer(int id);
+    Invoice GetInvoice(int id);
+    Item GetItem(int id);
+}
+
+[ExcludeFromCodeCoverage]
+public class CodingInterviewDao : ICodingInterviewDao
+{
+    public Customer GetCustomer(int id)
     {
-        public Customer GetCustomer(int id)
+        Customer customerDbo;
+
+        using (var db = new SqliteDatabaseContext())
         {
-            Customer customerDbo;
-
-            using (var db = new SqliteDatabaseContext())
-            {
-                customerDbo = db.Customers
-                    .FirstOrDefault(customer => customer.Id == id);
-            }
-
-            return customerDbo;
+            customerDbo = db.Customers
+                .FirstOrDefault(customer => customer.Id == id);
         }
 
-        public Invoice GetInvoice(int id)
+        return customerDbo;
+    }
+
+    public Invoice GetInvoice(int id)
+    {
+        Invoice invoiceDbo;
+
+        using (var db = new SqliteDatabaseContext())
         {
-            Invoice invoiceDbo;
-
-            using (var db = new SqliteDatabaseContext())
-            {
-                invoiceDbo = db.Invoices
-                    .Include(invoice => invoice.Customer)
-                    .Include(invoice => invoice.InvoiceItems)
-                    .ThenInclude(invoiceItem => invoiceItem.Item)
-                    .FirstOrDefault(invoice => invoice.Id == id);
-            }
-
-            return invoiceDbo;
+            invoiceDbo = db.Invoices
+                .Include(invoice => invoice.Customer)
+                .Include(invoice => invoice.InvoiceItems)
+                .ThenInclude(invoiceItem => invoiceItem.Item)
+                .FirstOrDefault(invoice => invoice.Id == id);
         }
 
-        public Item GetItem(int id)
+        return invoiceDbo;
+    }
+
+    public Item GetItem(int id)
+    {
+        Item itemDbo;
+
+        using (var db = new SqliteDatabaseContext())
         {
-            Item itemDbo;
-
-            using (var db = new SqliteDatabaseContext())
-            {
-                itemDbo = db.Items
-                    .FirstOrDefault(item => item.Id == id);
-            }
-
-            return itemDbo;
+            itemDbo = db.Items
+                .FirstOrDefault(item => item.Id == id);
         }
+
+        return itemDbo;
     }
 }

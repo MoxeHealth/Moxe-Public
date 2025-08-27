@@ -1,1 +1,0 @@
-Launch from Intellij from the java-interview folder
